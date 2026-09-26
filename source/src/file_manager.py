@@ -1,4 +1,5 @@
 import os
+import socket
 import urllib.parse
 import json
 import re
@@ -187,6 +188,32 @@ def create_filtered_configs() -> str:
                 continue
             seen_hostport.add(key)
         unique_configs.append(c)
+
+    # TCP-проверка живости: UDP-протоколы (hysteria2/tuic) пропускаем без проверки,
+    # TCP-протоколы оставляем только с открытым портом
+    UDP_PREFIXES = ("hysteria://", "hysteria2://", "hy2://", "tuic://", "juicity://")
+    to_check = [c for c in unique_configs if not c.lower().startswith(UDP_PREFIXES)]
+
+    def _tcp_alive(cfg: str) -> bool:
+        hp = _extract_host_port(cfg)
+        if not hp:
+            return False
+        host, port = hp
+        try:
+            sock = socket.create_connection((host, int(port)), timeout=2.5)
+            sock.close()
+            return True
+        except Exception:
+            return False
+
+    max_workers = int(os.environ.get("LIVENESS_WORKERS", "200"))
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        alive_flags = list(executor.map(_tcp_alive, to_check))
+
+    alive_set = {cfg for cfg, ok in zip(to_check, alive_flags) if ok}
+    alive_configs = [c for c in unique_configs if c.lower().startswith(UDP_PREFIXES) or c in alive_set]
+    log(f"🧪 TCP-проверка живости: {sum(alive_flags)}/{len(to_check)} конфигов ответили")
+    unique_configs = alive_configs
 
     local_path_26 = os.path.join(GITHUBMIRROR_DIR, "26.txt")
     try:
