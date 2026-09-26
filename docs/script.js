@@ -97,16 +97,18 @@ async function loadFiles() {
 
 async function loadStatus() {
   try {
-    const res = await fetch(`https://api.github.com/repos/${REPO}/commits?per_page=1`, {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/commits?per_page=30`, {
       headers: { Accept: "application/vnd.github+json" },
     });
     if (!res.ok) throw new Error("HTTP " + res.status);
-    const [c] = await res.json();
-    const msg = c.commit.message.split("\n")[0];
+    const commits = await res.json();
+    const robot = commits.find((c) => /Автообновление/.test(c.commit.message || ""));
+    if (!robot) return;
+    const msg = robot.commit.message.split("\n")[0];
     const m = msg.match(/:\s*(.+)$/);
     const stamp = m ? m[1] : msg;
 
-    const mins = Math.max(0, Math.round((Date.now() - new Date(c.commit.author.date).getTime()) / 60000));
+    const mins = Math.max(0, Math.round((Date.now() - new Date(robot.commit.author.date).getTime()) / 60000));
     $("statAgo").textContent = mins === 0 ? "только что" : mins;
     $("statusText").textContent = `робот жив · последняя сборка: ${stamp}`;
   } catch (e) {
