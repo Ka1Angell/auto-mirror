@@ -3,117 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>aero·mirror — живое зеркало конфигов</title>
-<meta name="description" content="Свежие vless/vmess конфиги, собираемые роботом каждые 9 минут. Обход белых списков, живые размеры файлов, воздух и вода.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='35%25' cy='30%25' r='80%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff'/%3E%3Cstop offset='35%25' stop-color='%23a8e6ff'/%3E%3Cstop offset='100%25' stop-color='%231a8fc4'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cpath d='M16 2C11 10 5 15 5 21a11 11 0 0 0 22 0c0-6-6-11-11-19z' fill='url(%23g)' stroke='%23ffffff' stroke-width='1'/%3E%3Cellipse cx='12' cy='14' rx='3' ry='4.5' fill='%23ffffff' opacity='.7' transform='rotate(-18 12 14)'/%3E%3C/svg%3E">
+<title>liquid·mirror — живые конфиги каждые 9 минут</title>
+<meta name="description" content="Свежие vless/vmess конфиги с TCP-проверкой живости. Робот собирает и фильтрует каждые 9 минут.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g' cx='35%25' cy='30%25' r='80%25'%3E%3Cstop offset='0%25' stop-color='%23a5f3fc'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cpath d='M16 2C11 10 5 15 5 21a11 11 0 0 0 22 0c0-6-6-11-11-19z' fill='url(%23g)'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Mulish:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
-<div class="sun" aria-hidden="true"></div>
-<div class="flare" aria-hidden="true"></div>
-<div class="bubbles" aria-hidden="true">
-  <span></span><span></span><span></span><span></span><span></span><span></span>
-  <span></span><span></span><span></span><span></span><span></span><span></span>
-</div>
+<div class="glow glow-a" aria-hidden="true"></div>
+<div class="glow glow-b" aria-hidden="true"></div>
+<div class="glow glow-c" aria-hidden="true"></div>
 
-<header class="hero">
-  <svg class="fish" viewBox="0 0 120 60" aria-hidden="true">
-    <defs>
-      <linearGradient id="koi" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#ffd97d"/><stop offset="1" stop-color="#ff9a62"/>
-      </linearGradient>
-    </defs>
-    <path d="M18 30c14-16 52-22 74-10l16-12c2 10 2 24 0 34l-16-12c-22 12-60 8-74 0z" fill="url(#koi)" opacity=".85"/>
-    <circle cx="30" cy="27" r="2.4" fill="#08344a"/>
-  </svg>
-
-  <div class="hero-inner">
-    <div class="logo"><i class="bi bi-droplet-fill"></i> aero<i>·</i>mirror</div>
-    <h1>Живое зеркало<br>свободных конфигов</h1>
-    <p class="tagline">робот собирает прокси из открытых источников каждые 9 минут —<br>
-    страница дышит вместе с ним</p>
-
-    <div class="status pebble" id="status">
-      <span class="pulse" id="pulse"></span>
-      <span id="statusText">спрашиваю робота…</span>
-    </div>
-
-    <div class="cta">
-      <a class="btn btn-primary" href="#files"><i class="bi bi-wind"></i> Забрать конфиги</a>
-      <a class="btn btn-ghost" href="#howto"><i class="bi bi-book"></i> Подключить за минуту</a>
-    </div>
-  </div>
-
-  <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,64 C240,110 480,20 720,54 C960,88 1200,40 1440,70 L1440,120 L0,120 Z" fill="#eefbf3" opacity=".9"/>
-    <path d="M0,84 C260,40 520,104 760,84 C1000,64 1240,96 1440,84 L1440,120 L0,120 Z" fill="#dff5e8"/>
-  </svg>
+<header class="top container">
+  <div class="logo"><i class="bi bi-droplet-fill"></i> liquid<i>·</i>mirror</div>
+  <a class="gh-link" href="https://github.com/Ka1Angell/auto-mirror" target="_blank" rel="noopener">
+    <i class="bi bi-github"></i> Ka1Angell/auto-mirror
+  </a>
 </header>
 
-<main>
-  <section class="stats" id="stats">
-    <div class="pebble stat"><i class="bi bi-collection"></i><b id="statFiles">—</b><span>файлов в зеркале</span></div>
-    <div class="pebble stat"><i class="bi bi-cloud-check"></i><b id="statSize">—</b><span>суммарный вес</span></div>
-    <div class="pebble stat"><i class="bi bi-arrow-repeat"></i><b id="statAgo">—</b><span>минут назад робот был здесь</span></div>
+<section class="hero container">
+  <h1>Свежие конфиги.<br><span class="grad">Каждые 9 минут.</span></h1>
+  <p class="sub">робот собирает прокси из открытых источников, проверяет каждый сервер
+  по TCP и выкладывает только живые — прямо сюда</p>
+
+  <div class="status" id="status">
+    <span class="pulse" id="pulse"></span>
+    <span id="statusText">спрашиваю робота…</span>
+  </div>
+</section>
+
+<main class="container">
+  <section class="stats">
+    <div class="stat"><i class="bi bi-collection"></i><b id="statFiles">—</b><span>файлов</span></div>
+    <div class="stat"><i class="bi bi-cloud-check"></i><b id="statSize">—</b><span>общий вес</span></div>
+    <div class="stat"><i class="bi bi-arrow-repeat"></i><b id="statAgo">—</b><span>минут назад сборка</span></div>
   </section>
 
-  <section id="files" aria-label="Файлы конфигов">
-    <h2><i class="bi bi-droplet-half"></i> Свежая вода</h2>
-    <p class="section-note">размеры подтягиваются с GitHub при каждом открытии страницы —
+  <section id="files">
+    <h2><i class="bi bi-stack"></i> Забирай</h2>
+    <p class="note-line">размеры и время подтягиваются с GitHub при каждом открытии —
     то, что ты видишь, существует прямо сейчас</p>
     <div class="grid" id="fileGrid">
-      <div class="pebble card skeleton"><div class="line w60"></div><div class="line w90"></div><div class="line w40"></div></div>
-      <div class="pebble card skeleton"><div class="line w60"></div><div class="line w90"></div><div class="line w40"></div></div>
-      <div class="pebble card skeleton"><div class="line w60"></div><div class="line w90"></div><div class="line w40"></div></div>
+      <div class="card skeleton"><div class="line w60"></div><div class="line w90"></div><div class="line w40"></div></div>
+      <div class="card skeleton"><div class="line w60"></div><div class="line w90"></div><div class="line w40"></div></div>
+      <div class="card skeleton"><div class="line w60"></div><div class="line w90"></div><div class="line w40"></div></div>
     </div>
   </section>
 
   <section id="howto">
-    <h2><i class="bi bi-signpost-split"></i> Три глотка до свободы</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="dropnum">1</div>
+    <h2><i class="bi bi-signpost-split"></i> Подключить за минуту</h2>
+    <div class="grid how">
+      <div class="card step">
+        <div class="stepnum">1</div>
         <h3>v2rayNG <i class="bi bi-android2"></i></h3>
-        <p>«Группы подписок» → <b>+</b> → вставь ссылку на нужный файл →
-        потяни список вниз для обновления.</p>
+        <p>«Группы подписок» → <b>+</b> → вставь ссылку на файл → потяни список вниз, чтобы обновить.</p>
       </div>
-      <div class="step">
-        <div class="dropnum">2</div>
+      <div class="card step">
+        <div class="stepnum">2</div>
         <h3>Throne / Hiddify <i class="bi bi-window-desktop"></i></h3>
-        <p>Добавь ту же ссылку как подписку — клиент сам заберёт
-        все конфиги и будет обновлять их по кнопке.</p>
+        <p>Добавь ту же ссылку как подписку — клиент заберёт все конфиги и будет обновлять их по кнопке.</p>
       </div>
-      <div class="step">
-        <div class="dropnum">3</div>
+      <div class="card step">
+        <div class="stepnum">3</div>
         <h3>Без подписки <i class="bi bi-clipboard"></i></h3>
-        <p>Открой .txt, скопируй содержимое целиком и импортируй
-        из буфера обмена. Работает всегда.</p>
+        <p>Открой .txt, скопируй всё содержимое и импортируй из буфера обмена. Работает всегда.</p>
       </div>
-    </div>
-    <div class="pebble note">
-      <i class="bi bi-lightbulb"></i>
-      <span>В режиме <b>белых списков</b> начинай с файла <b>26</b> — он собран
-      специально под SNI/CIDR-фильтрацию и проходит там, где остальные молчат.</span>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="footer-bubbles" aria-hidden="true">
-    <span></span><span></span><span></span><span></span><span></span>
+<footer class="container">
+  <div class="foot glass">
+    <p><b>26.txt</b> — единственный файл, где каждый сервер прошёл TCP-проверку.
+    В режиме <b>белых списков</b> начинай именно с него.</p>
+    <p class="fine">конфиги собираются из открытых источников и фильтруются от insecure ·
+    сделано в духе liquid glass</p>
   </div>
-  <p><i class="bi bi-droplet-fill"></i> aero·mirror — витрина зеркала
-  <a href="https://github.com/Ka1Angell/auto-mirror" target="_blank" rel="noopener">Ka1Angell/auto-mirror</a></p>
-  <p class="fine">конфиги собраны роботом из открытых источников и фильтруются от insecure ·
-  сайт тихо живёт в духе 2007-го</p>
 </footer>
 
 <div class="toast" id="toast" role="status"></div>
-<script src="script.js?v=2"></script>
+<script src="script.js?v=3"></script>
 </body>
 </html>

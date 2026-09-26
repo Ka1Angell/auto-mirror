@@ -5,7 +5,7 @@ const REPO = "Ka1Angell/auto-mirror";
 const RAW = `https://raw.githubusercontent.com/${REPO}/main/githubmirror/`;
 
 const META = {
-  26: { title: "Обход белых списков", desc: "Конфиги под SNI/CIDR-фильтрацию: подобраны под домены, которые операторы не режут. Главный файл в режиме белых списков.", star: true },
+  26: { title: "Обход белых списков", live: true, desc: "Единственный файл, где каждый сервер прошёл TCP-проверку живости — мёртвые выкидываются при каждой сборке. Подобран под SNI-домены, которые операторы не режут.", star: true },
   1:  { title: "OpenRay · валидированные", desc: "Сборник sakha1370 — прокси, прошедшие проверку валидатором." },
   2:  { title: "Мега-сборник", desc: "Огромный сырой микс от sevcator. Проверьте терпение клиента.", warn: "405k конфигов — не для телефона" },
   6:  { title: "roosterkid · openproxylist", desc: "Регулярно обновляемый открытый список прокси." },
@@ -49,8 +49,9 @@ function cardHTML(num, meta, size) {
       <h3>${esc(meta.title)}</h3>
     </div>
     <p>${esc(meta.desc)}</p>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
       ${size != null ? `<span class="size-pill"><i class="bi bi-droplet"></i> ${fmtSize(size)}</span>` : ""}
+      ${meta.live ? `<span class="liveness"><i class="bi bi-activity"></i> TCP-проверено</span>` : ""}
       ${meta.warn ? `<span class="warn">${esc(meta.warn)}</span>` : ""}
     </div>
     <div class="card-actions">
