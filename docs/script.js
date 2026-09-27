@@ -5,19 +5,19 @@ const REPO = "Ka1Angell/auto-mirror";
 const RAW = `https://raw.githubusercontent.com/${REPO}/main/githubmirror/`;
 
 const META = {
-  26: { title: "Обход белых списков", live: true, desc: "Единственный файл, где каждый сервер прошёл TCP-проверку живости — мёртвые выкидываются при каждой сборке. Подобран под SNI-домены, которые операторы не режут.", star: true },
-  1:  { title: "OpenRay · валидированные", desc: "Сборник sakha1370 — прокси, прошедшие проверку валидатором." },
+  26: { title: "Обход белых списков", live: true, rec: true, desc: "Единственный файл, где каждый сервер прошёл TCP-проверку живости — мёртвые выкидываются при каждой сборке. Подобран под SNI-домены, которые операторы не режут.", star: true },
+  1:  { title: "OpenRay · валидированные", rec: true, desc: "Сборник sakha1370 — прокси, прошедшие проверку валидатором." },
   2:  { title: "Мега-сборник", desc: "Огромный сырой микс от sevcator. Проверьте терпение клиента.", warn: "405k конфигов — не для телефона" },
-  6:  { title: "roosterkid · openproxylist", desc: "Регулярно обновляемый открытый список прокси." },
+  6:  { title: "roosterkid · openproxylist", rec: true, desc: "Регулярно обновляемый открытый список прокси." },
   13: { title: "daily_free_vpn", desc: "Маленькая порция на каждый день." },
   14: { title: "LalatinaHub · Mineral", desc: "Аккуратные ноды из минеральной жилы." },
   17: { title: "V2rayCollector_Py · mix", desc: "Микс-коллектор MhdiTaheri на Python." },
   20: { title: "Argh94 · All_Config", desc: "Большой агрегированный список Proxy-List." },
   21: { title: "xray-config-toolkit", desc: "Base64-микс из тулкита wuqb2i4f." },
-  22: { title: "base64 · mix-uri", desc: "Компактный base64-вариант смешанного списка." },
-  23: { title: "igareck · BLACK VLESS RUS", desc: "VLESS-конфиги, заточенные под российские блокировки." },
-  24: { title: "Mr-Meshky · vify", desc: "Компактный vless-набор проекта vify." },
-  25: { title: "V2RayRoot · Config", desc: "Очередной живой срез vless-серверов." },
+  22: { title: "base64 · mix-uri", rec: true, desc: "Компактный base64-вариант смешанного списка." },
+  23: { title: "igareck · BLACK VLESS RUS", rec: true, desc: "VLESS-конфиги, заточенные под российские блокировки." },
+  24: { title: "Mr-Meshky · vify", rec: true, desc: "Компактный vless-набор проекта vify." },
+  25: { title: "V2RayRoot · Config", rec: true, desc: "Очередной живой срез vless-серверов." },
 };
 
 const $ = (id) => document.getElementById(id);
@@ -52,6 +52,7 @@ function cardHTML(num, meta, size) {
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
       ${size != null ? `<span class="size-pill"><i class="bi bi-droplet"></i> ${fmtSize(size)}</span>` : ""}
       ${meta.live ? `<span class="liveness"><i class="bi bi-activity"></i> TCP-проверено</span>` : ""}
+      ${meta.rec ? `<span class="rec"><i class="bi bi-patch-check-fill"></i> рекомендую</span>` : ""}
       ${meta.warn ? `<span class="warn">${esc(meta.warn)}</span>` : ""}
     </div>
     <div class="card-actions">
